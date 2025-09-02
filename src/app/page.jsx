@@ -21,9 +21,9 @@ export default function Home() {
           </h1>
           <ul className='mt-4 text-gray-700 list-disc list-inside'>
             <li>Evelyn Gonçalves de Oliveira</li>
-            <li>18 anos</li>
-            <li>Cursando Ensino Médio</li>
             <li>Técnico em desenvolvimento de software</li>
+            <li>Escola SENAI Valinhos</li>
+            <li><span className='font-bold'>Foque</span> no que você quer e faça até dar certo</li>
           </ul>
           <div className='flex flex-col sm:flex-row gap-5 mt-6 justify-center sm:justify-start'>
             <Link href="/infoApi">
