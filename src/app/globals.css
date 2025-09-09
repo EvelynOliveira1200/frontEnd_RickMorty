@@ -20,3 +20,30 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'Signika';
+    src: url('/fonts/Signika-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Signika-Medium';
+    src: url('/fonts/Signika-Medium.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Signika-SemiBold';
+    font-weight: 600;
+    src: url('/fonts/Signika-SemiBold.ttf') format('truetype');
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'AlfaSlabOne', sans-serif;
+}
+
+p, li, a, span, button {
+    font-family: 'Signika-Medium', sans-serif;
+}
+    

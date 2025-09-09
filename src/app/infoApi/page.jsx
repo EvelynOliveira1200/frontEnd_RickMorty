@@ -1,8 +1,10 @@
 
 "use client";
 import React from "react";
-import styles from "./infoApi.module.css";
+import styles from "./InfoApi.module.css";
 import Image from "next/image";
+import Link from "next/link";
+import Header from "../../components/Header";
 
 export default function Home() {
   const characters = [
@@ -14,20 +16,7 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <Image
-          src="/image/logo.png"
-          alt="Logo"
-          width={220}
-          height={220}
-          className={styles.logo}
-        />
-        <ul className={styles.menu}>
-          <li className={styles.menuItem}>Personagens</li>
-          <li className={styles.menuItem}>Detalhes</li>
-          <li className={styles.menuItem}>Sobre mim</li>
-        </ul>
-      </header>
+      <Header/>
 
       <section className={styles.banner}>
         <Image
@@ -45,7 +34,10 @@ export default function Home() {
             consumo via REST e exploração do multiverso da animação de forma
             simples e acessível.
           </p>
-          <button className={styles.ctaButton}>Explorar Personagens</button>
+          <Link href="/home">
+          <button className={styles.ctaButton}>Explorar Personagens
+          </button>
+          </Link>
         </div>
       </section>
 
