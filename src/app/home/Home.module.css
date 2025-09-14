@@ -2,7 +2,6 @@
     background: linear-gradient(180deg, #000, #1a1a1a); 
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     color: white;
     position: relative;
@@ -10,16 +9,9 @@
 }
 
 .cardGrid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
-    margin-top: 4rem; 
-    width: 90%; 
-    max-width: 1200px; 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
 }
 
 .cardGrid > div {

@@ -10,7 +10,6 @@ export default function Home() {
         <Image 
           src="/image/perfil_img.jpeg" 
           alt="Logo" 
-          layout="intrinsic" 
           width={200} 
           height={200} 
           className="block rounded-lg sm:mr-8" 
@@ -33,7 +32,7 @@ export default function Home() {
                 Saber Mais (API)
               </button>
             </Link>
-            <Link href="/">
+            <Link href="/home">
               <button className='bg-[#0092a6] hover:bg-[#0070cc] text-white font-medium py-3 px-11 rounded-lg shadow-md'>
                 Seguir para Home
               </button>

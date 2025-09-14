@@ -3,42 +3,23 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cards from "../../components/Cards";
 import Header from "../../components/Header";
-import { Pagination } from 'antd';
 import styles from "./Home.module.css";
 
 export default function Page() {
     const [loading, setLoading] = useState(false);
     const [characters, setCharacters] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(8);
+    const [totalPages, setTotalPages] = useState(1);
+    const [pageSize, setPageSize] = useState(8)
 
-    const currentCharacters = characters.slice(
-        (currentPage - 1) * pageSize,
-        currentPage * pageSize
-    );
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page); 
-    };
-
-    const handlePageSizeChange = (current, size) => {
-        setPageSize(size); 
-        setCurrentPage(1); 
-    };
-
-    const fetchCharacters = async () => {
+    const fetchCharacters = async (page) => {
         setLoading(true);
         try {
             const response = await axios.get(
-                "https://api.sampleapis.com/rickandmorty/characters"
+                `https://rickandmortyapi.com/api/character?page=${page}`
             );
-            console.log("Resposta da API:", response.data);
-            if (response.status === 200 && Array.isArray(response.data)) {
-                setCharacters(response.data); 
-                console.log("Total de personagens:", response.data.length); 
-            } else {
-                console.error("Resposta inesperada:", response);
-            }
+            setCharacters(response.data.results);
+            setTotalPages(response.data.info.pages);
         } catch (error) {
             console.error("Erro ao buscar personagens:", error);
         } finally {
@@ -47,8 +28,8 @@ export default function Page() {
     };
 
     useEffect(() => {
-        fetchCharacters();
-    }, []);
+        fetchCharacters(currentPage);
+    }, [currentPage]);
 
     return (
         <div className={styles.container}>
@@ -56,29 +37,43 @@ export default function Page() {
 
             {loading && <p className="text-center">Carregando...</p>}
 
-            <div className={styles.cardGrid}>
-                {currentCharacters.length > 0 ? (
-                    currentCharacters.map((character) => (
+            {!loading && (
+                <div className={styles.cardGrid}>
+                    {characters.map((character) => (
                         <Cards
-                            key={character.id || character.name} 
+                            key={character.id}
                             character={character}
-                            onClick={() => console.log(character.name)}
                         />
-                    ))
-                ) : (
-                    !loading && <p className="text-center">Nenhum personagem encontrado.</p>
-                )}
-            </div>
+                    ))}
+                </div>
+            )}
 
-            <div className="flex justify-center mt-4">
-                <Pagination
-                    current={currentPage} 
-                    pageSize={pageSize} 
-                    total={characters.length} 
-                    onChange={handlePageChange} 
-                    showSizeChanger 
-                    onShowSizeChange={handlePageSizeChange} 
-                />
+            <div className={styles.pagination}>
+                <button
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className={styles.buttonPage}
+                >
+                    Anterior
+                </button>
+                <span>
+                    Página {currentPage} de {totalPages}
+                </span>
+                <button
+                    onClick={() =>
+                        setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                    }
+                    disabled={currentPage === totalPages}
+                    className={styles.buttonPage}
+                >
+                    Próxima
+                </button>
+
+                <select value={pageSize} onChange={e => { setPageSize(Number(e.target.value)); setCurrentPage(1); }}>
+                    <option value={4}>4</option>
+                    <option value={8}>8</option>
+                    <option value={12}>12</option>
+                </select>
             </div>
         </div>
     );
