@@ -1,6 +1,7 @@
-
 .container {
-    background: linear-gradient(200deg, #2c5364 0%, #000000 100%);
+    background: linear-gradient(45deg, #00e6ff, #0093a6, #1b1b1b);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -12,7 +13,17 @@
     transition: background 0.5s;
 }
 
-
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 .cardGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
