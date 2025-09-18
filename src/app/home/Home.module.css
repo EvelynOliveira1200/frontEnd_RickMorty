@@ -1,60 +1,86 @@
+.parallaxWrapper {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.backgroundGalaxy {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #0d1b2a, #1b263b, #000);
+  z-index: -4;
+  will-change: transform;
+  transition: transform 0.15s ease-out;
+}
+
+.backgroundStars {
+  position: fixed;
+  inset: 0;
+  background: 
+    url('/image/star.png') repeat;
+  background-size: cover, contain;
+  z-index: -3;
+  opacity: 0.6;
+  will-change: transform;
+  transition: transform 0.15s ease-out;
+}
+
+.backgroundPlanets {
+  position: fixed;
+  inset: 0;
+  background: 
+    url('/image/planeta1.png') no-repeat left 10%,
+    url('/image/planeta2.png') no-repeat right 20%,
+    url('/image/planeta3.png') no-repeat center bottom,
+    url('/image/planeta.png') no-repeat right bottom;
+  background-size: 220px, 260px, 200px, 280px;
+  z-index: -2;
+  opacity: 0.85;
+  will-change: transform;
+  transition: transform 0.15s ease-out;
+}
+
 .container {
-    background: linear-gradient(45deg, #00e6ff, #0093a6, #1b1b1b);
-    background-size: 400% 400%;
-    animation: gradientAnimation 10s ease infinite;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #fff;
-    position: relative;
-    padding: 5rem 1rem 2rem 1rem;
-    justify-content: flex-start;
-    transition: background 0.5s;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  padding: 5rem 1rem 2rem 1rem;
 }
 
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
 .cardGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2.5rem;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-bottom: 2.5rem;
-    transition: gap 0.3s;
-    padding: 0 1rem;
-    margin-top: 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 2.5rem;
+  transition: gap 0.3s;
+  padding: 0 1rem;
+  margin-top: 4rem;
 }
-
 
 .cardGrid > div {
-    border-radius: 16px;
-    padding: 1.2rem 1rem 1.5rem 1rem;
-    background: rgba(0, 147, 166, 0.95);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-    transition: transform 0.25s, box-shadow 0.25s, background 0.3s;
-    cursor: pointer;
-    border: 1.5px solid #00e6ff33;
+  border-radius: 16px;
+  padding: 1.2rem 1rem 1.5rem 1rem;
+  background: rgba(0, 147, 166, 0.95);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  transition: transform 0.25s, box-shadow 0.25s, background 0.3s;
+  cursor: pointer;
+  border: 1.5px solid #00e6ff33;
 }
-
 
 .cardGrid > div:hover {
-    transform: translateY(-8px) scale(1.04);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-    background: rgba(0, 147, 166, 1);
-    border-color: #00e6ff;
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+  background: rgba(0, 147, 166, 1);
+  border-color: #00e6ff;
 }
+
 
 .pagination {
     display: flex;
@@ -118,4 +144,3 @@
         padding: 0.7rem;
     }
 }
-

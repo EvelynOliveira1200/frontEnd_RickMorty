@@ -13,6 +13,21 @@ export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(8);
 
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+    const handleMouseMove = (e) => {
+        const x = (e.clientX / window.innerWidth) - 0.5;
+        const y = (e.clientY / window.innerHeight) - 0.5;
+        setMousePos({ x, y });
+    };
+
+    useEffect(() => {
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+
     // Busca todos os personagens para paginação local
     const fetchAllCharacters = async () => {
         setLoading(true);
@@ -48,46 +63,66 @@ export default function Page() {
     }, [pageSize]);
 
     return (
-        <div className={styles.container}>
-            <Header />
+        <div className={styles.parallaxWrapper}>
+            <div
+                className={styles.backgroundGalaxy}
+                style={{
+                    transform: `translate(${mousePos.x * 10}px, ${mousePos.y * 10}px)`
+                }}
+            />
+            <div
+                className={styles.backgroundStars}
+                style={{
+                    transform: `translate(${mousePos.x * 25}px, ${mousePos.y * 25}px)`
+                }}
+            />
+            <div
+                className={styles.backgroundPlanets}
+                style={{
+                    transform: `translate(${mousePos.x * 50}px, ${mousePos.y * 50}px)`
+                }}
+            />
+            <div className={styles.container}>
+                <Header />
 
-            {loading && <p className="text-center">Carregando...</p>}
+                {loading && <p className="text-center">Carregando...</p>}
 
-            {!loading && (
-                <div className={styles.cardGrid}>
-                    {currentCharacters.map((character) => (
-                        <Cards
-                            key={character.id}
-                            character={character}
-                        />
-                    ))}
+                {!loading && (
+                    <div className={styles.cardGrid}>
+                        {currentCharacters.map((character) => (
+                            <Cards
+                                key={character.id}
+                                character={character}
+                            />
+                        ))}
+                    </div>
+                )}
+
+                <div className={styles.pagination}>
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                        className={styles.buttonPage}
+                    >
+                        Anterior
+                    </button>
+                    <span>
+                        Página {currentPage} de {totalPages}
+                    </span>
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        className={styles.buttonPage}
+                    >
+                        Próxima
+                    </button>
+                    <label style={{ marginLeft: 16 }}>Cards por página: </label>
+                    <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+                        <option value={4}>4</option>
+                        <option value={8}>8</option>
+                        <option value={30}>30</option>
+                    </select>
                 </div>
-            )}
-
-            <div className={styles.pagination}>
-                <button
-                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
-                    className={styles.buttonPage}
-                >
-                    Anterior
-                </button>
-                <span>
-                    Página {currentPage} de {totalPages}
-                </span>
-                <button
-                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                    className={styles.buttonPage}
-                >
-                    Próxima
-                </button>
-                <label style={{marginLeft: 16}}>Cards por página: </label>
-                <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
-                    <option value={4}>4</option>
-                    <option value={8}>8</option>
-                    <option value={30}>30</option>
-                </select>
             </div>
         </div>
     );
