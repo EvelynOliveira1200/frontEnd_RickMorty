@@ -15,6 +15,7 @@
     overflow: hidden;
     display: flex;
     align-items: center;
+    
 }
 
 .bannerImg {
@@ -85,19 +86,24 @@
 }
 
 .ctaButton {
-    margin-top: 20px;
-    padding: 12px 24px;
-    background: #0092a6;
-    border: none;
-    border-radius: 8px;
+   background: linear-gradient(45deg, #00e6ff, #0093a6);
     color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 230, 255, 0.4);
+    text-decoration: none;
+    display: inline-block;
 }
+
 .ctaButton:hover {
-    background: #0070cc;
-    transform: scale(1.05);
+    background: linear-gradient(45deg, #0093a6, #00e6ff);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 230, 255, 0.6);
 }
 
 .infoApi {

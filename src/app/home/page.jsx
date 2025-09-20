@@ -5,7 +5,7 @@ import axios from "axios";
 import Cards from "../../components/Cards";
 import Header from "../../components/Header";
 import styles from "./Home.module.css";
-
+import Link from "next/link";
 
 export default function Page() {
     const [loading, setLoading] = useState(false);
@@ -53,76 +53,77 @@ export default function Page() {
         fetchAllCharacters();
     }, []);
 
-    // Paginação local
     const totalPages = Math.ceil(characters.length / pageSize) || 1;
     const currentCharacters = characters.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
-    // Atualiza página para 1 se mudar o pageSize
     useEffect(() => {
         setCurrentPage(1);
     }, [pageSize]);
 
     return (
-        <div className={styles.parallaxWrapper}>
-            <div
-                className={styles.backgroundGalaxy}
-                style={{
-                    transform: `translate(${mousePos.x * 10}px, ${mousePos.y * 10}px)`
-                }}
-            />
-            <div
-                className={styles.backgroundStars}
-                style={{
-                    transform: `translate(${mousePos.x * 25}px, ${mousePos.y * 25}px)`
-                }}
-            />
-            <div
-                className={styles.backgroundPlanets}
-                style={{
-                    transform: `translate(${mousePos.x * 50}px, ${mousePos.y * 50}px)`
-                }}
-            />
-            <div className={styles.container}>
-                <Header />
-
-                {loading && <p className="text-center">Carregando...</p>}
-
-                {!loading && (
-                    <div className={styles.cardGrid}>
-                        {currentCharacters.map((character) => (
-                            <Cards
-                                key={character.id}
-                                character={character}
-                            />
-                        ))}
-                    </div>
-                )}
-
-                <div className={styles.pagination}>
-                    <button
-                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                        disabled={currentPage === 1}
-                        className={styles.buttonPage}
-                    >
-                        Anterior
-                    </button>
-                    <span>
-                        Página {currentPage} de {totalPages}
-                    </span>
-                    <button
-                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                        disabled={currentPage === totalPages}
-                        className={styles.buttonPage}
-                    >
-                        Próxima
-                    </button>
-                    <label style={{ marginLeft: 16 }}>Cards por página: </label>
-                    <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
-                        <option value={4}>4</option>
-                        <option value={8}>8</option>
-                        <option value={30}>30</option>
-                    </select>
+        <div className={styles.container}>
+            <Header />
+            <section className={styles.videoBanner}>
+                <video
+                    className={styles.bannerVideo}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                >
+                    <source src="/image/bannerVideo.mp4" type="video/mp4" />
+                </video>
+                <div className={styles.bannerContent}>
+                    <h1 className={styles.bannerTitle}>Conheça os Personagens</h1>
+                    <p className={styles.bannerDescription}>
+                        Explore mais de 800 personagens do universo de Rick and Morty com nossa API! Descubra curiosidades, detalhes e imagens de seus personagens favoritos de forma prática e completa.
+                    </p>
+                    <Link href="/infoApi">
+                        <button className={styles.ctaButton}>Explorar Personagens
+                        </button>
+                    </Link>
                 </div>
+
+
+            </section>
+
+            {loading && <p className="text-center">Carregando...</p>}
+
+            {!loading && (
+                <div className={styles.cardGrid}>
+                    {currentCharacters.map((character) => (
+                        <Cards
+                            key={character.id}
+                            character={character}
+                        />
+                    ))}
+                </div>
+            )}
+
+            <div className={styles.pagination}>
+                <button
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className={styles.buttonPage}
+                >
+                    ← Anterior
+                </button>
+                <span className={styles.paginationLabel}>
+                    Página {currentPage} de {totalPages}
+                </span>
+                <button
+                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className={styles.buttonPage}
+                >
+                    Próxima →
+                </button>
+                <label className={styles.paginationLabel}>Cards por página:</label>
+                <select className={styles.selectPageSize} value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+                    <option className={styles.optionPageSize} value={4}>4</option>
+                    <option className={styles.optionPageSize} value={8}>8</option>
+                    <option className={styles.optionPageSize} value={30}>30</option>
+                </select>
             </div>
         </div>
     );
