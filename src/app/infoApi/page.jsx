@@ -20,7 +20,7 @@ export default function Home() {
 
       <section className={styles.banner}>
         <Image
-          src="/image/banner01.png"
+          src="/image/banner_infoApi.jpg"
           alt="Banner"
           width={1920}
           height={1080}
